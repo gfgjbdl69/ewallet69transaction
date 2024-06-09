@@ -50,10 +50,10 @@ public class TransactionServiceImpl  implements TransactionService {
                 kafkaTemplate.send("notification-topic", content);
 
                 NotificationRequest reciverNotificationRequest = new NotificationRequest();
-                senderNotificationRequest.setTransactionStatus("SUCCESS");
-                senderNotificationRequest.setAmount(transactionRequest.getAmount());
-                senderNotificationRequest.setUserId(userId);
-                senderNotificationRequest.setUserType("RECEIVER");
+                reciverNotificationRequest.setTransactionStatus("SUCCESS");
+                reciverNotificationRequest.setAmount(transactionRequest.getAmount());
+                reciverNotificationRequest.setUserId(transactionRequest.getReceiverId());
+                reciverNotificationRequest.setUserType("RECEIVER");
                 content = mapper.writeValueAsString(reciverNotificationRequest);
                 kafkaTemplate.send("notification-topic", content);
             } else {
